@@ -1,0 +1,311 @@
+units:
+  px: u + 1
+  py: cy + 1
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [100, -100]
+      key:
+        spread: 1.5u
+        padding: 1u
+      columns:
+        outer:
+        pinky:
+          key.stagger: 0.2u
+          key.spread: 1.2u
+        ring:
+          key.stagger: 0.8u
+          key.splay: -10
+        middle:
+          key.stagger: 0.4u
+          key.splay: -4
+          key.spread: 1.2u
+        index:
+          key.stagger: -0.6u
+          key.splay: -8
+      rows:
+        bottom:
+        home:
+        top:
+          key:
+            padding:0
+        num:
+    thumbs:
+      key:
+        splay: -4
+        stagger: -2
+        spread: 1.2u
+      columns:
+        layer:
+        space:
+      rows:
+        one:
+        two:
+      anchor:
+        ref: matrix_index_bottom
+        shift: [2u, -0.5u]
+        rotate: -1.5u
+  mirror: &mirror
+    ref: matrix_index_num
+    distance: 5u
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [px-0.5,py-0.5]
+  left:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_ring_num
+          shift: [-0.75px,0.75py]
+        - ref: matrix_middle_num
+          shift: [0px,1py]
+        - ref: matrix_index_num
+          shift: [2.25px,0.75py]
+        - ref: thumbs_space_one
+          shift: [-2px,1.75py]
+        - ref: thumbs_space_two
+          shift: [0.75px,0.75py]
+        - ref: thumbs_space_one
+          shift: [0.75px,-0.75py]
+        - ref: matrix_index_bottom
+          shift: [0.75px,-1py]
+        - ref: matrix_pinky_bottom
+          shift: [0.75px,-0.75py]
+        - ref: matrix_outer_bottom
+          shift: [-0.75px,-0.75py]
+        - ref: matrix_outer_num
+          shift: [-0.75px,0.75py]
+      fillet: 3
+  right:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: mirror_matrix_ring_num
+          shift: [-0.75px,0.75py]
+        - ref: mirror_matrix_middle_num
+          shift: [0px,1py]
+        - ref: mirror_matrix_index_num
+          shift: [2.25px,0.75py]
+        - ref: mirror_thumbs_space_one
+          shift: [-2px,1.75py]
+        - ref: mirror_thumbs_space_two
+          shift: [0.75px,0.75py]
+        - ref: mirror_thumbs_space_one
+          shift: [0.75px,0.5py]
+        - ref: mirror_thumbs_space_one
+          shift: [0.75px,-0.75py]
+        - ref: mirror_matrix_index_bottom
+          shift: [0.5px,-1.25py]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [0.75px,-0.75py]
+        - ref: mirror_matrix_outer_bottom
+          shift: [-0.75px,-0.75py]
+        - ref: mirror_matrix_outer_num
+          shift: [-0.75px,0.75py]
+      fillet: 3
+  combo-left:
+    - name: left
+    - operation: subtract
+      name: keys
+  combo-right:
+    - name: right
+    - operation: subtract
+      name: keys
+pcbs:
+  central:
+    outlines:
+      main:
+        outline: left
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: 
+          - matrix_index_bottom
+          - matrix_pinky_bottom
+          - matrix_ring_bottom
+          - matrix_middle_bottom
+          - matrix_index_home
+          - matrix_pinky_home
+          - matrix_ring_home
+          - matrix_middle_home
+          - matrix_index_top
+          - matrix_pinky_top
+          - matrix_ring_top
+          - matrix_middle_top
+
+          - thumbs_space_one
+          - thumbs_space_two
+          - thumbs_layer_one
+          - thumbs_layer_two
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+
+      choc_hotswap:
+        what: choc 
+        where: 
+          - matrix_index_num
+          - matrix_outer_num
+          - matrix_pinky_num
+          - matrix_ring_num
+          - matrix_middle_num
+          - matrix_outer_top
+          - matrix_outer_home
+          - matrix_outer_bottom
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        # Controller
+      nice_nano:
+         what: ceoloide/mcu_nice_nano
+         params:
+         where:
+           ref: matrix_index_num
+           shift: [1.25u, -0.35u]
+      # Battery jack
+      jstph:
+        what: jstph
+        where:
+          ref: matrix_index_num
+          shift: [2u, 0.45u]
+        params:
+            side: b
+            pos: pos
+            neg: gnd
+      # Reset switch (horizontal community version)
+      horizontal_reset:
+        what: ceoloide/reset_switch_smd_side
+        params: 
+          side: B
+          from: GND
+          to: RST 
+        where:
+          ref: matrix_index_num
+          shift: [2u, -0.2u]
+          rotate: -90.0
+      # Battery on/off switch
+      battery_switch:
+        what: ceoloide/power_switch_smd_side
+        where:
+            ref: matrix_index_num
+            shift: [2u, -0.75u]
+        params:
+            side: B
+            from: pos
+            to: RAW
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+  peripheral:
+    outlines:
+      main:
+        outline: right
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: 
+          - mirror_matrix_index_bottom
+          - mirror_matrix_pinky_bottom
+          - mirror_matrix_ring_bottom
+          - mirror_matrix_middle_bottom
+          - mirror_matrix_index_home
+          - mirror_matrix_pinky_home
+          - mirror_matrix_ring_home
+          - mirror_matrix_middle_home
+          - mirror_matrix_index_top
+          - mirror_matrix_pinky_top
+          - mirror_matrix_ring_top
+          - mirror_matrix_middle_top
+          - mirror_thumbs_space_one
+          - mirror_thumbs_space_two
+          - mirror_thumbs_layer_one
+          - mirror_thumbs_layer_two
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+
+      choc_hotswap:
+        what: choc 
+        where: 
+          - mirror_matrix_index_num
+          - mirror_matrix_outer_num
+          - mirror_matrix_pinky_num
+          - mirror_matrix_ring_num
+          - mirror_matrix_middle_num
+          - mirror_matrix_outer_top
+          - mirror_matrix_outer_home
+          - mirror_matrix_outer_bottom
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        # Controller
+      nice_nano:
+         what: ceoloide/mcu_nice_nano
+         params:
+         where:
+           ref: mirror_matrix_index_num
+           shift: [1.25u, -0.35u]
+      # Battery jack
+      jstph:
+        what: jstph
+        where:
+          ref: mirror_matrix_index_num
+          shift: [2u, 0.45u]
+        params:
+            side: b
+            pos: pos
+            neg: gnd
+      # Reset switch (horizontal community version)
+      horizontal_reset:
+        what: ceoloide/reset_switch_smd_side
+        params: 
+          side: B
+          from: GND
+          to: RST 
+        where:
+          ref: mirror_matrix_index_num
+          shift: [2u, -0.2u]
+          rotate: -90.0
+      # Battery on/off switch
+      battery_switch:
+        what: ceoloide/power_switch_smd_side
+        where:
+            ref: mirror_matrix_index_num
+            shift: [2u, -0.75u]
+        params:
+            side: B
+            from: pos
+            to: RAW
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
