@@ -1,0 +1,59 @@
+# Ergogen output files
+output/
+dist/
+points/
+outlines/
+units/
+pcbs/
+cases/
+
+# KiCad temporary files
+*.000
+*.bak
+*.bck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.kicad_prl
+*.sch-bak
+*~
+_autosave-*
+*.tmp
+*-save.pro
+*-save.kicad_pcb
+fp-info-cache
+*#auto_saved_files#
+
+# KiCad output files
+*-backups/
+*.net
+*.dsn
+*.ses
+*.xml
+gerbers/
+*.zip
+fab/
+*.csv
+*.pos
+*.drl
+*.gbr
+*.gbrjob
+
+# Operating System files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Node dependencies (if using npm/yarn with Ergogen)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Editor directories and files
+.idea/
+*.swp
+*.swo
+.vscode/

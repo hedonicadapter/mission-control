@@ -121,6 +121,7 @@ outlines:
       name: keys
 pcbs:
   central:
+    template: kicad8
     outlines:
       main:
         outline: left
@@ -149,6 +150,7 @@ pcbs:
           keycaps: true
           reverse: false
           hotswap: true
+          include_corner_marks: true
           from: "{{column_net}}"
           to: "{{colrow}}"
 
@@ -216,6 +218,7 @@ pcbs:
         adjust:
           shift: [0, -5]
   peripheral:
+    template: kicad8
     outlines:
       main:
         outline: right
@@ -235,6 +238,7 @@ pcbs:
           - mirror_matrix_pinky_top
           - mirror_matrix_ring_top
           - mirror_matrix_middle_top
+
           - mirror_thumbs_space_one
           - mirror_thumbs_space_two
           - mirror_thumbs_layer_one
@@ -243,6 +247,7 @@ pcbs:
           keycaps: true
           reverse: false
           hotswap: true
+          include_corner_marks: true
           from: "{{column_net}}"
           to: "{{colrow}}"
 
@@ -277,14 +282,12 @@ pcbs:
           ref: mirror_matrix_index_num
           shift: [2u, 0.45u]
         params:
-            side: b
             pos: pos
             neg: gnd
       # Reset switch (horizontal community version)
       horizontal_reset:
         what: ceoloide/reset_switch_smd_side
         params: 
-          side: B
           from: GND
           to: RST 
         where:
