@@ -222,7 +222,7 @@ pcbs:
             from: pos
             to: RAW
       diode:
-        what: diode
+        what: ceoloide/diode_tht_sod123
         where: true
         params:
           from: "{{colrow}}"
@@ -325,7 +325,7 @@ pcbs:
           show_outline_t430: true
           show_board: true
       diode:
-        what: diode
+        what: ceoloide/diode_tht_sod123
         where: true
         params:
           from: "{{colrow}}"
