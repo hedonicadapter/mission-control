@@ -150,7 +150,6 @@ pcbs:
           keycaps: true
           reverse: false
           hotswap: true
-          include_corner_marks: true
           from: "{{column_net}}"
           to: "{{colrow}}"
 
@@ -247,7 +246,6 @@ pcbs:
           keycaps: true
           reverse: false
           hotswap: true
-          include_corner_marks: true
           from: "{{column_net}}"
           to: "{{colrow}}"
 
@@ -304,6 +302,14 @@ pcbs:
             side: B
             from: pos
             to: RAW
+      trackpoint:
+        what: infused-kim/trackpoint_mount
+        where: 
+            ref: mirror_thumbs_layer_one
+            shift: [0.61u, 0.465u]
+        params:  
+          show_outline_t430: true
+          show_board: true
       diode:
         what: diode
         where: true
