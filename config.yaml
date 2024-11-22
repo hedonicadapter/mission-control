@@ -177,6 +177,11 @@ pcbs:
          where:
            ref: matrix_index_num
            shift: [1.25u, -0.35u]
+      nice_view:
+        what: ceoloide/display_nice_view
+        where:
+           ref: matrix_index_num
+           shift: [1.75u, -0.6u]
       # Battery jack
       jstph:
         what: jstph
@@ -273,6 +278,11 @@ pcbs:
          where:
            ref: mirror_matrix_index_num
            shift: [1.25u, -0.35u]
+      nice_view:
+        what: ceoloide/display_nice_view
+        where:
+           ref: mirror_matrix_index_num
+           shift: [1.75u, -0.6u]
       # Battery jack
       jstph:
         what: jstph
