@@ -127,7 +127,7 @@ pcbs:
         outline: left
     footprints:
       mx_hotswap:
-        what: mx
+        what: ceoloide/switch_mx
         where: 
           - matrix_index_bottom
           - matrix_pinky_bottom
@@ -143,18 +143,22 @@ pcbs:
           - matrix_middle_top
 
           - thumbs_space_one
-          - thumbs_space_two
           - thumbs_layer_one
           - thumbs_layer_two
         params:
-          keycaps: true
-          reverse: false
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
-
+      mx_hotswap_encoder:
+        what: ceoloide/switch_mx
+        where: thumbs_space_two
+        params:
+          hotswap: true
+          outer_pad_height: 2.5
+          from: "{{column_net}}"
+          to: "{{colrow}}"
       choc_hotswap:
-        what: choc 
+        what: ceoloide/switch_choc_v1_v2 
         where: 
           - matrix_index_num
           - matrix_outer_num
@@ -165,8 +169,6 @@ pcbs:
           - matrix_outer_home
           - matrix_outer_bottom
         params:
-          keycaps: true
-          reverse: false
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
@@ -182,6 +184,12 @@ pcbs:
         where:
            ref: matrix_index_num
            shift: [1.75u, -0.6u]
+      encoder:
+        what: ceoloide/rotary_encoder_ec11_ec12
+        where:
+           ref: thumbs_space_two
+        params:
+          mounting_holes_position: 7.5
       # Battery jack
       jstph:
         what: jstph
@@ -228,7 +236,7 @@ pcbs:
         outline: right
     footprints:
       mx_hotswap:
-        what: mx
+        what: ceoloide/switch_mx
         where: 
           - mirror_matrix_index_bottom
           - mirror_matrix_pinky_bottom
@@ -248,14 +256,12 @@ pcbs:
           - mirror_thumbs_layer_one
           - mirror_thumbs_layer_two
         params:
-          keycaps: true
-          reverse: false
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
 
       choc_hotswap:
-        what: choc 
+        what: ceoloide/switch_choc_v1_v2 
         where: 
           - mirror_matrix_index_num
           - mirror_matrix_outer_num
@@ -266,8 +272,6 @@ pcbs:
           - mirror_matrix_outer_home
           - mirror_matrix_outer_bottom
         params:
-          keycaps: true
-          reverse: false
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
