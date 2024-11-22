@@ -11,26 +11,35 @@ points:
         padding: 1u
       columns:
         outer:
+          key.column_net: P14
         pinky:
           key.stagger: 0.2u
           key.spread: 1.2u
+          key.column_net: P16
         ring:
           key.stagger: 0.8u
           key.splay: -10
+          key.column_net: P10
         middle:
           key.stagger: 0.4u
           key.splay: -4
           key.spread: 1.2u
+          key.column_net: P6
         index:
           key.stagger: -0.6u
           key.splay: -8
+          key.column_net: P7
       rows:
         bottom:
+          row_net: P18
         home:
+          row_net: P19
         top:
           key:
             padding:0
+          row_net: P20
         num:
+          row_net: P21
     thumbs:
       key:
         splay: -4
@@ -38,10 +47,14 @@ points:
         spread: 1.2u
       columns:
         layer:
+          key.column_net: P9
         space:
+          key.column_net: P8
       rows:
         one:
+          row_net: P18
         two:
+          row_net: P19
       anchor:
         ref: matrix_index_bottom
         shift: [2u, -0.5u]
@@ -176,6 +189,7 @@ pcbs:
       nice_nano:
          what: ceoloide/mcu_nice_nano
          params:
+           reverse_mount: true
          where:
            ref: matrix_index_num
            shift: [1.25u, -0.35u]
@@ -279,6 +293,7 @@ pcbs:
       nice_nano:
          what: ceoloide/mcu_nice_nano
          params:
+           reverse_mount: true
          where:
            ref: mirror_matrix_index_num
            shift: [1.25u, -0.35u]
