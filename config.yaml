@@ -5,7 +5,7 @@ points:
   zones:
     matrix:
       anchor:
-        shift: [100, -100]
+        shift: [40, -150]
       key:
         spread: 1.5u
         padding: 1u
@@ -63,10 +63,6 @@ points:
     ref: matrix_index_num
     distance: 5u
 outlines:
-  raw:
-    - what: rectangle
-      where: true
-      size: [px, py]
   keys:
     - what: rectangle
       where: true
@@ -161,7 +157,7 @@ pcbs:
         params:
           hotswap: true
           from: "{{column_net}}"
-          to: "{{colrow}}"
+          to: "{{name}}"
       mx_hotswap_encoder:
         what: ceoloide/switch_mx
         where: thumbs_space_two
@@ -169,7 +165,7 @@ pcbs:
           hotswap: true
           outer_pad_height: 2.5
           from: "{{column_net}}"
-          to: "{{colrow}}"
+          to: "{{name}}"
       choc_hotswap:
         what: ceoloide/switch_choc_v1_v2 
         where: 
@@ -184,7 +180,7 @@ pcbs:
         params:
           hotswap: true
           from: "{{column_net}}"
-          to: "{{colrow}}"
+          to: "{{name}}"
         # Controller
       nice_nano:
          what: ceoloide/mcu_nice_nano
@@ -204,6 +200,12 @@ pcbs:
            ref: thumbs_space_two
         params:
           mounting_holes_position: 7.5
+          include_momentary_switch_pads: true
+          include_plate_hole_marking: true
+          include_silkscreen: true
+          include_plated_mounting_holes: false
+          S1: "{{name}}"
+          S2: "{{colrow}}"
       # Battery jack
       jstph:
         what: jstph
@@ -211,14 +213,12 @@ pcbs:
           ref: matrix_index_num
           shift: [2u, 0.45u]
         params:
-            side: b
             pos: pos
             neg: gnd
       # Reset switch (horizontal community version)
       horizontal_reset:
         what: ceoloide/reset_switch_smd_side
         params: 
-          side: B
           from: GND
           to: RST 
         where:
@@ -232,15 +232,17 @@ pcbs:
             ref: matrix_index_num
             shift: [2u, -0.75u]
         params:
-            side: B
             from: pos
             to: RAW
       diode:
         what: ceoloide/diode_tht_sod123
-        where: true
+        where: 
+          - /^matrix.*/
+          - /^thumbs.*/
         params:
-          from: "{{colrow}}"
-          to: "{{row_net}}"
+          include_tht: false
+          from: "{{name}}"
+          to: "{{row}}"
         adjust:
           shift: [0, -5]
   peripheral:
@@ -272,7 +274,7 @@ pcbs:
         params:
           hotswap: true
           from: "{{column_net}}"
-          to: "{{colrow}}"
+          to: "{{name}}"
 
       choc_hotswap:
         what: ceoloide/switch_choc_v1_v2 
@@ -288,7 +290,7 @@ pcbs:
         params:
           hotswap: true
           from: "{{column_net}}"
-          to: "{{colrow}}"
+          to: "{{name}}"
         # Controller
       nice_nano:
          what: ceoloide/mcu_nice_nano
@@ -328,7 +330,6 @@ pcbs:
             ref: mirror_matrix_index_num
             shift: [2u, -0.75u]
         params:
-            side: B
             from: pos
             to: RAW
       trackpoint:
@@ -341,9 +342,11 @@ pcbs:
           show_board: true
       diode:
         what: ceoloide/diode_tht_sod123
-        where: true
+        where:
+          - /^mirror.*/
         params:
-          from: "{{colrow}}"
-          to: "{{row_net}}"
+          include_tht: false
+          from: "{{name}}"
+          to: "{{row}}"
         adjust:
           shift: [0, -5]
