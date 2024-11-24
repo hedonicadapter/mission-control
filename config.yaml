@@ -6,9 +6,13 @@ points:
     matrix:
       anchor:
         shift: [40, -150]
+      key:
+        spread: 1U
+        padding: 1U+1
       columns:
         outer:
           key.column_net: P14
+          key.padding: 1cy + 1
         pinky:
           key.stagger: 0.2u
           key.rotate: -1
@@ -17,13 +21,13 @@ points:
           key.column_net: P16
         ring:
           key.stagger: 0.5u
-          key.rotate: -1
+          key.rotate: -1.5
           key.splay: -10
           key.spread: 1u + 5
           key.column_net: P10
         middle:
           key.stagger: 0.5u
-          key.splay: -7
+          key.splay: -8
           key.spread: 1u + 4
           key.column_net: P6
         index:
@@ -40,13 +44,13 @@ points:
         top:
           row_net: P20
         num:
-          shift: [0, 1cy-1u]
+          shift: [0, 1cy-1U]
           row_net: P21
     thumbs:
       key:
         splay: -4
         stagger: -1
-        padding: 1u + 1
+        padding: 1U
       columns:
         layer:
           key.column_net: P9
@@ -65,11 +69,22 @@ points:
     ref: matrix_index_num
     distance: 5u
 outlines:
-  keys:
+  mx_keys:
     - what: rectangle
-      where: true
+      where: 
+        - /^mirror(?!.*num)(?!.*outer)(?!.*thumbs).*$/
+        - /^matrix(?!.*num)(?!.*outer)(?!.*thumbs).*$/
       bound: false
-      size: [px-0.5,py-0.5]
+      size: 1u
+      fillet: 1
+  choc_keys:
+    - what: rectangle
+      where: 
+        - /.*(num|outer).*/
+        - /thumbs/
+      bound: false
+      size: [1cx,1cy]
+      fillet: 1
   left:
     - what: polygon
       operation: stack
@@ -80,21 +95,22 @@ outlines:
           shift: [0px,1py]
         - ref: matrix_index_num
           shift: [2.25px,0.75py]
+        - ref: thumbs_space_two
+          shift: [-0.5px,1.5py]
         - ref: thumbs_space_one
-          shift: [-2px,1.75py]
+          shift: [-1.65px,2.4py]
+        - ref: thumbs_space_one
+          shift: [-1.6px, 1.65py]
         - ref: thumbs_space_two
           shift: [0.75px,0.75py]
         - ref: thumbs_space_one
           shift: [0.75px,-0.75py]
-        - ref: matrix_index_bottom
-          shift: [0.75px,-1py]
         - ref: matrix_pinky_bottom
           shift: [0.75px,-0.75py]
         - ref: matrix_outer_bottom
           shift: [-0.75px,-0.75py]
         - ref: matrix_outer_num
           shift: [-0.75px,0.75py]
-      fillet: 3
   right:
     - what: polygon
       operation: stack
@@ -105,37 +121,52 @@ outlines:
           shift: [0px,1py]
         - ref: mirror_matrix_index_num
           shift: [2.25px,0.75py]
+        - ref: mirror_thumbs_space_two
+          shift: [-0.5px,1.5py]
         - ref: mirror_thumbs_space_one
-          shift: [-2px,1.75py]
+          shift: [-1.65px,2.4py]
+        - ref: mirror_thumbs_space_one
+          shift: [-1.6px, 1.65py]
         - ref: mirror_thumbs_space_two
           shift: [0.75px,0.75py]
         - ref: mirror_thumbs_space_one
-          shift: [0.75px,0.5py]
-        - ref: mirror_thumbs_space_one
           shift: [0.75px,-0.75py]
-        - ref: mirror_matrix_index_bottom
-          shift: [0.5px,-1.25py]
         - ref: mirror_matrix_pinky_bottom
           shift: [0.75px,-0.75py]
         - ref: mirror_matrix_outer_bottom
           shift: [-0.75px,-0.75py]
         - ref: mirror_matrix_outer_num
           shift: [-0.75px,0.75py]
-      fillet: 3
-  combo-left:
+  left_mx:
     - name: left
     - operation: subtract
-      name: keys
-  combo-right:
+      name: mx_keys
+  left_choc:
+    - name: left
+    - operation: subtract
+      name: choc_keys
+  left_full:
+    - name: left_mx
+    - operation: stack
+      name: left_choc
+  right_mx:
     - name: right
     - operation: subtract
-      name: keys
+      name: mx_keys
+  right_choc:
+    - name: right
+    - operation: subtract
+      name: choc_keys
+  right_full:
+    - name: right_mx
+    - operation: stack
+      name: right_choc
 pcbs:
   central:
     template: kicad8
     outlines:
       main:
-        outline: left
+        outline: left_full
     footprints:
       mx_hotswap:
         what: ceoloide/switch_mx
@@ -253,7 +284,7 @@ pcbs:
     template: kicad8
     outlines:
       main:
-        outline: right
+        outline: right_full
     footprints:
       mx_hotswap:
         what: ceoloide/switch_mx

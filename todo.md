@@ -1,3 +1,5 @@
+choc spacing on outer and num
+choc thumb cluster
 routing
 trackball 
     https://github.com/sadekbaroudi/vik/tree/master/pcb/pmw3610-xs
