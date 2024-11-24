@@ -50,7 +50,7 @@ points:
       key:
         splay: -4
         stagger: -1
-        padding: 1U
+        padding: cx
       columns:
         layer:
           key.column_net: P9
@@ -183,20 +183,8 @@ pcbs:
           - matrix_pinky_top
           - matrix_ring_top
           - matrix_middle_top
-
-          - thumbs_space_one
-          - thumbs_layer_one
-          - thumbs_layer_two
         params:
           hotswap: true
-          from: "{{column_net}}"
-          to: "{{name}}"
-      mx_hotswap_encoder:
-        what: ceoloide/switch_mx
-        where: thumbs_space_two
-        params:
-          hotswap: true
-          outer_pad_height: 2.0
           from: "{{column_net}}"
           to: "{{name}}"
       choc_hotswap:
@@ -210,6 +198,7 @@ pcbs:
           - matrix_outer_top
           - matrix_outer_home
           - matrix_outer_bottom
+          - /^thumbs.*/
         params:
           hotswap: true
           from: "{{column_net}}"
@@ -301,11 +290,6 @@ pcbs:
           - mirror_matrix_pinky_top
           - mirror_matrix_ring_top
           - mirror_matrix_middle_top
-
-          - mirror_thumbs_space_one
-          - mirror_thumbs_space_two
-          - mirror_thumbs_layer_one
-          - mirror_thumbs_layer_two
         params:
           hotswap: true
           from: "{{column_net}}"
@@ -315,7 +299,6 @@ pcbs:
         where: /^mirror.*bottom$/
         adjust:
           shift: [0, -0.4u]
-
       choc_hotswap:
         what: ceoloide/switch_choc_v1_v2 
         where: 
@@ -327,6 +310,7 @@ pcbs:
           - mirror_matrix_outer_top
           - mirror_matrix_outer_home
           - mirror_matrix_outer_bottom
+          - /mirror_thumbs/
         params:
           hotswap: true
           from: "{{column_net}}"
