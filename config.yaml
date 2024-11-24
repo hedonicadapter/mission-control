@@ -1,33 +1,36 @@
 units:
   px: u + 1
-  py: cy + 1
+  py: u + 1
 points:
   zones:
     matrix:
       anchor:
         shift: [40, -150]
-      key:
-        spread: 1.5u
-        padding: 1u
       columns:
         outer:
           key.column_net: P14
         pinky:
           key.stagger: 0.2u
-          key.spread: 1.2u
+          key.rotate: -1
+          key.splay: 2
+          key.spread: 1cx + 2
           key.column_net: P16
         ring:
-          key.stagger: 0.8u
+          key.stagger: 0.5u
+          key.rotate: -1
           key.splay: -10
+          key.spread: 1u + 5
           key.column_net: P10
         middle:
-          key.stagger: 0.4u
-          key.splay: -4
-          key.spread: 1.2u
+          key.stagger: 0.5u
+          key.splay: -7
+          key.spread: 1u + 4
           key.column_net: P6
         index:
-          key.stagger: -0.6u
+          key.stagger: -0.5u
           key.splay: -8
+          key.rotate: -0.5
+          key.spread: 1u + 5
           key.column_net: P7
       rows:
         bottom:
@@ -35,16 +38,15 @@ points:
         home:
           row_net: P19
         top:
-          key:
-            padding:0
           row_net: P20
         num:
+          shift: [0, 1cy-1u]
           row_net: P21
     thumbs:
       key:
         splay: -4
-        stagger: -2
-        spread: 1.2u
+        stagger: -1
+        padding: 1u + 1
       columns:
         layer:
           key.column_net: P9
@@ -57,8 +59,8 @@ points:
           row_net: P19
       anchor:
         ref: matrix_index_bottom
-        shift: [2u, -0.5u]
-        rotate: -1.5u
+        shift: [1.5u, -1.5u]
+        rotate: 0
   mirror: &mirror
     ref: matrix_index_num
     distance: 5u
@@ -163,7 +165,7 @@ pcbs:
         where: thumbs_space_two
         params:
           hotswap: true
-          outer_pad_height: 2.5
+          outer_pad_height: 2.0
           from: "{{column_net}}"
           to: "{{name}}"
       choc_hotswap:
@@ -203,9 +205,11 @@ pcbs:
           include_momentary_switch_pads: true
           include_plate_hole_marking: true
           include_silkscreen: true
-          include_plated_mounting_holes: false
+          include_plated_mounting_holes: true
           S1: "{{name}}"
           S2: "{{colrow}}"
+        adjust:
+          rotate: 180
       # Battery jack
       jstph:
         what: jstph
@@ -275,6 +279,11 @@ pcbs:
           hotswap: true
           from: "{{column_net}}"
           to: "{{name}}"
+      holes_bottom:
+        what: ceoloide/mounting_hole_plated
+        where: /^mirror.*bottom$/
+        adjust:
+          shift: [0, -0.4u]
 
       choc_hotswap:
         what: ceoloide/switch_choc_v1_v2 
@@ -291,7 +300,12 @@ pcbs:
           hotswap: true
           from: "{{column_net}}"
           to: "{{name}}"
-        # Controller
+      holes_num:
+        what: ceoloide/mounting_hole_plated
+        where: /^mirror.*num$/
+        adjust:
+          shift: [0, 0.4u]
+      # Controller
       nice_nano:
          what: ceoloide/mcu_nice_nano
          params:
@@ -304,6 +318,11 @@ pcbs:
         where:
            ref: mirror_matrix_index_num
            shift: [1.75u, -0.6u]
+      hole_panel:
+        what: ceoloide/mounting_hole_plated
+        where:
+           ref: mirror_matrix_index_num
+           shift: [1u, -1.5u]
       # Battery jack
       jstph:
         what: jstph
