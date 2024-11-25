@@ -1,4 +1,3 @@
-choc spacing on outer and num
 choc thumb cluster
 routing
 trackball 

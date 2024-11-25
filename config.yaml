@@ -221,15 +221,12 @@ pcbs:
         where:
            ref: thumbs_space_two
         params:
-          mounting_holes_position: 7.5
           include_momentary_switch_pads: true
           include_plate_hole_marking: true
           include_silkscreen: true
           include_plated_mounting_holes: true
           S1: "{{name}}"
           S2: "{{colrow}}"
-        adjust:
-          rotate: 180
       # Battery jack
       jstph:
         what: jstph
@@ -247,14 +244,14 @@ pcbs:
           to: RST 
         where:
           ref: matrix_index_num
-          shift: [2u, -0.2u]
+          shift: [2u, -0.225u]
           rotate: -90.0
       # Battery on/off switch
       battery_switch:
         what: ceoloide/power_switch_smd_side
         where:
             ref: matrix_index_num
-            shift: [2u, -0.75u]
+            shift: [2u, -0.85u]
         params:
             from: pos
             to: RAW
@@ -355,14 +352,14 @@ pcbs:
           to: RST 
         where:
           ref: mirror_matrix_index_num
-          shift: [2u, -0.2u]
+          shift: [2u, -0.225u]
           rotate: -90.0
       # Battery on/off switch
       battery_switch:
         what: ceoloide/power_switch_smd_side
         where:
             ref: mirror_matrix_index_num
-            shift: [2u, -0.75u]
+            shift: [2u, -0.85u]
         params:
             from: pos
             to: RAW
