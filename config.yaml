@@ -7,34 +7,20 @@ points:
       anchor:
         shift: [40, -150]
       key:
-        spread: 1U
-        padding: 1U+1
+        spread: 1.3U
+        padding: 1U+6
       columns:
         outer:
           key.column_net: P14
           key.padding: 1cy + 1
         pinky:
-          key.stagger: 0.2u
-          key.rotate: -1
-          key.splay: 2
           key.spread: 1cx + 2
           key.column_net: P16
         ring:
-          key.stagger: 0.5u
-          key.rotate: -1.5
-          key.splay: -10
-          key.spread: 1u + 5
           key.column_net: P10
         middle:
-          key.stagger: 0.5u
-          key.splay: -8
-          key.spread: 1u + 4
           key.column_net: P6
         index:
-          key.stagger: -0.5u
-          key.splay: -8
-          key.rotate: -0.5
-          key.spread: 1u + 5
           key.column_net: P7
       rows:
         bottom:
@@ -48,9 +34,8 @@ points:
           row_net: P21
     thumbs:
       key:
-        splay: -4
-        stagger: -1
         padding: cx + 1
+        spread: 1.3cx
       columns:
         layer:
           key.column_net: P9
@@ -63,11 +48,10 @@ points:
           row_net: P19
       anchor:
         ref: matrix_index_bottom
-        shift: [1.5u, -1.5u]
-        rotate: 0
+        shift: [1.5u, 0]
   mirror: &mirror
     ref: matrix_index_num
-    distance: 5u
+    distance: 8u
 outlines:
   mx_keys:
     - what: rectangle
@@ -89,28 +73,35 @@ outlines:
     - what: polygon
       operation: stack
       points:
-        - ref: matrix_ring_num
-          shift: [-0.75px,0.75py]
-        - ref: matrix_middle_num
-          shift: [0px,1py]
+        - ref: matrix_pinky_num
+          shift: [-(1u+1cy),1cy]
+        - aggregate: 
+            parts: [matrix_pinky_num, matrix_ring_num]
+            method: average
+          shift: [-1,0.9u]
+
+        - aggregate: 
+            parts: [matrix_pinky_num, matrix_ring_num]
+            method: average
+          shift: [-1,-1u]
+          
         - ref: matrix_index_num
-          shift: [2.25px,0.75py]
-        - ref: thumbs_space_two
-          shift: [-0.5px,1.5py]
+          shift: [2.25px,1cy]
+        - ref: matrix_index_num
+          shift: [2.25px,-1u]
+        - ref: matrix_index_num
+          shift: [1px,-1u]
         - ref: thumbs_space_one
-          shift: [-1.65px,2.4py]
+          shift: [-1.6px, 1.55py]
         - ref: thumbs_space_one
-          shift: [-1.6px, 1.65py]
-        - ref: thumbs_space_two
-          shift: [0.75px,0.75py]
+          shift: [0.75u,1.55py]
         - ref: thumbs_space_one
           shift: [0.75px,-0.75py]
         - ref: matrix_pinky_bottom
           shift: [0.75px,-0.75py]
-        - ref: matrix_outer_bottom
-          shift: [-0.75px,-0.75py]
-        - ref: matrix_outer_num
-          shift: [-0.75px,0.75py]
+        - ref: matrix_pinky_bottom
+          shift: [-(1u+1cy),-0.75py]
+
   right:
     - what: polygon
       operation: stack
@@ -225,6 +216,7 @@ pcbs:
           include_plate_hole_marking: true
           include_silkscreen: true
           include_plated_mounting_holes: true
+          encoder_pads_position: 8.254
           S1: "{{name}}"
           S2: "{{colrow}}"
       # Battery jack
@@ -245,7 +237,6 @@ pcbs:
         where:
           ref: matrix_index_num
           shift: [2u, -0.225u]
-          rotate: -90.0
       # Battery on/off switch
       battery_switch:
         what: ceoloide/power_switch_smd_side
@@ -353,8 +344,7 @@ pcbs:
         where:
           ref: mirror_matrix_index_num
           shift: [2u, -0.225u]
-          rotate: -90.0
-      # Battery on/off switch
+    # Battery on/off switch
       battery_switch:
         what: ceoloide/power_switch_smd_side
         where:

@@ -1,0 +1,245 @@
+units:
+  px: u + 1
+  py: u + 1
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [40, -150]
+      key:
+        spread: 1.3U +1
+        padding: 1U+6
+      columns:
+        outer:
+          key.column_net: P14
+        pinky:
+          key.column_net: P16
+        ring:
+          key.column_net: P10
+        middle:
+          key.column_net: P6
+        index:
+          key.column_net: P7
+      rows:
+        bottom:
+          row_net: P18
+        home:
+          row_net: P19
+        top:
+          row_net: P20
+        num:
+          row_net: P21
+    thumbs:
+      key:
+        padding: 1.39cy
+        spread: 1.33cx
+      columns:
+        layer:
+          key.column_net: P9
+        space:
+          key.column_net: P8
+      rows:
+        one:
+          row_net: P18
+        two:
+          row_net: P19
+      anchor:
+        ref: matrix_index_bottom
+        shift: [1.35u, 0]
+  mirror: &mirror
+    ref: matrix_index_num
+    distance: 8u
+outlines:
+  mx_key:
+    - what: rectangle
+      bound: false
+      size: 1u
+  mx_keys:
+  - what: outline
+    name: mx_key
+    where: 
+      - /^mirror(?!.*num)(?!.*outer)(?!.*thumbs).*$/
+      - /^matrix(?!.*num)(?!.*outer)(?!.*thumbs).*$/
+    bound: false
+    fillet: 1
+
+  choc_key:
+    - what: rectangle
+      bound: false
+      size: [cx, cy]
+  choc_keys:
+    - what: outline
+      name: choc_key
+      where: 
+        - /.*(num|outer).*/
+        - /thumbs/
+      fillet: 1
+
+  flexor_arm_down_mx:
+    - what: polygon
+      points:
+        - shift: [-1.35u, 0.5u]
+        - shift: [0.5u+3, 0]
+        - shift: [0, -0.9u]
+        - shift: [1,0]
+        - shift: [0, 0.9u]
+        - shift: [2.5, 0]
+        - shift: [2.5, 0]
+        - shift: [0, -5]
+        - shift: [-3.2, 1]
+        - shift: [0, 0]
+        - shift: [0, -0.8u]
+        - shift: [0, 0]
+        - shift: [-1, 0]
+        - shift: [-3.5, 0]
+        - shift: [0, 0.8u]
+        - shift: [0, 2]
+      adjust:
+        rotate: 90
+  flexor_arm_right_mx:
+    - what: polygon
+      points:
+        - shift: [0, 0.5u]
+        - shift: [0.5u+3, 0]
+        - shift: [0, -0.9u]
+        - shift: [1,0]
+        - shift: [0, 0.9u]
+        - shift: [2.5, 0]
+        - shift: [2.5, 0]
+        - shift: [0, -5]
+        - shift: [-3.2, 1]
+        - shift: [0, 0]
+        - shift: [0, -0.8u]
+        - shift: [0, 0]
+        - shift: [-1, 0]
+        - shift: [-3.5, 0]
+        - shift: [0, 0.8u]
+        - shift: [0, 2]
+  flexor_arm_right_choc:
+    - what: outline
+      name: flexor_arm_right_mx
+      scale: 0.89
+      adjust:
+        shift: [1.5, 0]
+  flexor_arm_down_choc:
+    - what: outline
+      name: flexor_arm_down_mx
+      scale: 0.925
+
+  mx-key-arm-down:
+    - operation: stack
+      name: mx_key
+    - name: flexor_arm_down_mx
+  choc-key-arm-down:
+    - operation: stack
+      name: choc_key
+    - name: flexor_arm_down_choc
+
+  mx_keys_right_arms:
+    - what: outline
+      name: flexor_arm_right_mx
+      where: 
+        - matrix_index_home
+        - matrix_index_bottom
+        - matrix_middle_top
+        - matrix_middle_home
+        - matrix_middle_bottom
+        - matrix_ring_top
+        - matrix_ring_home
+        - matrix_ring_bottom
+        - matrix_pinky_top
+        - matrix_pinky_home
+        - matrix_pinky_bottom
+
+        - mirror_matrix_index_top
+        - mirror_matrix_index_home
+        - mirror_matrix_index_bottom
+        - mirror_matrix_middle_top
+        - mirror_matrix_middle_home
+        - mirror_matrix_middle_bottom
+        - mirror_matrix_ring_top
+        - mirror_matrix_ring_home
+        - mirror_matrix_ring_bottom
+        - mirror_matrix_pinky_top
+        - mirror_matrix_pinky_home
+        - mirror_matrix_pinky_bottom
+  choc_keys_right_arms:
+    - what: outline
+      name: flexor_arm_right_choc
+      where: 
+        - matrix_outer_num
+        - matrix_pinky_num
+        - matrix_ring_num
+        - matrix_middle_num
+
+        - matrix_outer_num
+        - matrix_outer_top
+        - matrix_outer_home
+        - matrix_outer_bottom
+
+        - thumbs_layer_one
+        - thumbs_layer_two
+
+        - mirror_matrix_pinky_num
+        - mirror_matrix_ring_num
+        - mirror_matrix_middle_num
+        - mirror_matrix_index_num
+
+        - mirror_thumbs_layer_one
+        - mirror_thumbs_layer_two
+        - mirror_thumbs_space_one
+        - mirror_thumbs_space_two
+
+  mx_keys_down:
+    - what: outline
+      name: flexor_arm_down_mx
+      where: 
+        - /^(mirror|matrix)(?!.*num)(?!.*outer)(?!.*bottom)(?!.*thumbs).*$/
+  choc_keys_down:
+    - what: outline
+      name: flexor_arm_down_choc
+      where: 
+        - matrix_index_num
+        - matrix_middle_num
+        - matrix_ring_num
+        - matrix_pinky_num
+        - matrix_outer_num
+        - matrix_outer_top
+        - matrix_outer_home
+
+        - mirror_matrix_index_num
+        - mirror_matrix_middle_num
+        - mirror_matrix_ring_num
+        - mirror_matrix_pinky_num
+        - mirror_matrix_outer_num
+        - mirror_matrix_outer_top
+        - mirror_matrix_outer_home
+
+        - /thumbs_layer_two/
+        - /thumbs_space_two/
+
+
+  mx_arms_right_and_down:
+    - operation: add
+      name: mx_keys_right_arms
+    - name: mx_keys_down
+
+  choc_arms_right_and_down:
+    - operation: add
+      name: choc_keys_right_arms
+    - name: choc_keys_down
+  
+  pcb_mx:
+    - operation: add
+      name: mx_arms_right_and_down
+    - name: mx_keys
+
+  pcb_choc:
+    - operation: add
+      name: choc_arms_right_and_down
+    - name: choc_keys
+
+  pcb_keys:
+    - operation: add
+      name: pcb_mx
+    - name: pcb_choc
