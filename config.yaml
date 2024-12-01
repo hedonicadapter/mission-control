@@ -7,14 +7,12 @@ points:
       anchor:
         shift: [40, -150]
       key:
-        spread: 1.3U
-        padding: 1U+6
+        spread: 1.3U+2
+        padding: 1U+7.5
       columns:
         outer:
           key.column_net: P14
-          key.padding: 1cy + 1
         pinky:
-          key.spread: 1cx + 2
           key.column_net: P16
         ring:
           key.column_net: P10
@@ -30,12 +28,11 @@ points:
         top:
           row_net: P20
         num:
-          shift: [0, 1cy - 1U +1]
           row_net: P21
     thumbs:
       key:
-        padding: cx + 1
-        spread: 1.3cx
+        spread: 1.3U+2
+        padding: 1U+7.5
       columns:
         layer:
           key.column_net: P9
@@ -48,116 +45,334 @@ points:
           row_net: P19
       anchor:
         ref: matrix_index_bottom
-        shift: [1.5u, 0]
+        shift: [1.7u, 1]
   mirror: &mirror
     ref: matrix_index_num
-    distance: 8u
+    distance: 6u
 outlines:
-  mx_keys:
+  mx_key:
     - what: rectangle
-      where: 
-        - /^mirror(?!.*num)(?!.*outer)(?!.*thumbs).*$/
-        - /^matrix(?!.*num)(?!.*outer)(?!.*thumbs).*$/
       bound: false
       size: 1u
-      fillet: 1
-  choc_keys:
+  mx_keys_central:
+  - what: outline
+    name: mx_key
+    where: 
+      - /^matrix(?!.*num)(?!.*outer)(?!.*thumbs).*$/
+    bound: false
+    adjust.shift: [0, -1]
+  mx_keys_peripheral:
+  - what: outline
+    name: mx_key
+    where: 
+      - /^mirror(?!.*num)(?!.*outer)(?!.*thumbs).*$/
+    bound: false
+    adjust.shift: [0, -1]
+
+  choc_key:
     - what: rectangle
-      where: 
-        - /.*(num|outer).*/
-        - /thumbs/
       bound: false
-      size: [1cx,1cy]
-      fillet: 1
-  left:
-    - what: polygon
-      operation: stack
-      points:
-        - ref: matrix_pinky_num
-          shift: [-(1u+1cy),1cy]
-        - aggregate: 
-            parts: [matrix_pinky_num, matrix_ring_num]
-            method: average
-          shift: [-1,0.9u]
+      size: [cx, cy+1]
+  choc_keys_central:
+    - what: outline
+      name: choc_key
+      where: 
+        - /^matrix.*(num|outer).*/
+        - /^thumbs.*/
+      adjust.shift: [0, -0.5]
+  choc_keys_peripheral:
+    - what: outline
+      name: choc_key
+      where: 
+        - /^mirror.*(num|outer).*/
+        - /mirror_thumbs/
+      adjust.shift: [0, -0.5]
 
-        - aggregate: 
-            parts: [matrix_pinky_num, matrix_ring_num]
-            method: average
-          shift: [-1,-1u]
-          
-        - ref: matrix_index_num
-          shift: [2.25px,1cy]
-        - ref: matrix_index_num
-          shift: [2.25px,-1u]
-        - ref: matrix_index_num
-          shift: [1px,-1u]
-        - ref: thumbs_space_one
-          shift: [-1.6px, 1.55py]
-        - ref: thumbs_space_one
-          shift: [0.75u,1.55py]
-        - ref: thumbs_space_one
-          shift: [0.75px,-0.75py]
-        - ref: matrix_pinky_bottom
-          shift: [0.75px,-0.75py]
-        - ref: matrix_pinky_bottom
-          shift: [-(1u+1cy),-0.75py]
-
-  right:
+  flexor_arm_right_mx:
     - what: polygon
-      operation: stack
       points:
-        - ref: mirror_matrix_ring_num
-          shift: [-0.75px,0.75py]
-        - ref: mirror_matrix_middle_num
-          shift: [0px,1py]
-        - ref: mirror_matrix_index_num
-          shift: [2.25px,0.75py]
-        - ref: mirror_thumbs_space_two
-          shift: [-0.5px,1.5py]
-        - ref: mirror_thumbs_space_one
-          shift: [-1.65px,2.4py]
-        - ref: mirror_thumbs_space_one
-          shift: [-1.6px, 1.65py]
-        - ref: mirror_thumbs_space_two
-          shift: [0.75px,0.75py]
-        - ref: mirror_thumbs_space_one
-          shift: [0.75px,-0.75py]
-        - ref: mirror_matrix_pinky_bottom
-          shift: [0.75px,-0.75py]
-        - ref: mirror_matrix_outer_bottom
-          shift: [-0.75px,-0.75py]
-        - ref: mirror_matrix_outer_num
-          shift: [-0.75px,0.75py]
-  left_mx:
-    - name: left
-    - operation: subtract
-      name: mx_keys
-  left_choc:
-    - name: left
-    - operation: subtract
-      name: choc_keys
-  left_full:
-    - name: left_mx
+        - shift: [0, 0]       # Start point
+        - shift: [5, 0]    # Move right
+        - shift: [0, -0.9u]     # Move down
+        - shift: [1, 0]       # Move right
+        - shift: [0, 0.9u]      # Move up
+        - shift: [5, 0]       # Move right
+        - shift: [0, -2]      # Move down
+        - shift: [-3, 0]      # Move left
+        - shift: [0, -0.9u]     # Move down
+        - shift: [0, 0]       # Stay at current position
+        - shift: [-5, 0]    # Move further left
+        - shift: [0, 0.9u]      # Move up
+        - shift: [0, 0]       # Stay at current position
+        - shift: [-3, 0]      # Move left
+      adjust:
+        shift: [0.39u, 0.45u]
+ 
+  flexor_arm_down_mx:
+    - what: outline
+      name: flexor_arm_right_mx
+      adjust:
+        rotate: 90
+        shift: [0, -1.425u]
+
+  flexor_arm_right_choc:
+    - what: outline
+      name: flexor_arm_right_mx
+      scale: 0.89
+      adjust:
+        shift: [2, 1]
+  flexor_arm_down_choc:
+    - what: outline
+      name: flexor_arm_down_mx
+      scale: 0.925
+      adjust.shift: [-1.2,0]
+
+  mx-key-arm-down:
     - operation: stack
-      name: left_choc
-  right_mx:
-    - name: right
-    - operation: subtract
-      name: mx_keys
-  right_choc:
-    - name: right
-    - operation: subtract
-      name: choc_keys
-  right_full:
-    - name: right_mx
+      name: mx_key
+    - name: flexor_arm_down_mx
+  choc-key-arm-down:
     - operation: stack
-      name: right_choc
+      name: choc_key
+    - name: flexor_arm_down_choc
+
+  mx-key-arm-right:
+    - operation: stack
+      name: mx_key
+    - name: flexor_arm_right_mx
+  choc-key-arm-right:
+    - operation: stack
+      name: choc_key
+    - name: flexor_arm_right_choc
+
+  mx_keys_right_arms_central:
+    - what: outline
+      name: flexor_arm_right_mx
+      where: 
+        - matrix_index_top
+        - matrix_index_home
+        - matrix_index_bottom
+        - matrix_middle_top
+        - matrix_middle_home
+        - matrix_middle_bottom
+        - matrix_ring_top
+        - matrix_ring_home
+        - matrix_ring_bottom
+        - matrix_pinky_top
+        - matrix_pinky_home
+        - matrix_pinky_bottom
+  mx_keys_right_arms_peripheral:
+    - what: outline
+      name: flexor_arm_right_mx
+      where: 
+        - mirror_matrix_index_top
+        - mirror_matrix_index_home
+        - mirror_matrix_index_bottom
+        - mirror_matrix_middle_top
+        - mirror_matrix_middle_home
+        - mirror_matrix_middle_bottom
+        - mirror_matrix_ring_top
+        - mirror_matrix_ring_home
+        - mirror_matrix_ring_bottom
+        - mirror_matrix_pinky_top
+        - mirror_matrix_pinky_home
+        - mirror_matrix_pinky_bottom
+
+  choc_keys_right_arms_central:
+    - what: outline
+      name: flexor_arm_right_choc
+      where: 
+        - matrix_outer_num
+        - matrix_pinky_num
+        - matrix_ring_num
+        - matrix_middle_num
+        - matrix_index_num
+
+        - matrix_outer_num
+        - matrix_outer_top
+        - matrix_outer_home
+        - matrix_outer_bottom
+
+        - thumbs_layer_one
+        - thumbs_layer_two
+  choc_keys_right_arms_peripheral:
+    - what: outline
+      name: flexor_arm_right_choc
+      where: 
+        - mirror_matrix_pinky_num
+        - mirror_matrix_ring_num
+        - mirror_matrix_middle_num
+        - mirror_matrix_index_num
+
+        - mirror_thumbs_space_one
+        - mirror_thumbs_space_two
+
+  choc_keys_right_arms_extra:
+  - what: outline
+    name: flexor_arm_right_choc
+    where: 
+      - ref: mirror_matrix_index_num
+        shift: [1.4u-0.5, 0]
+  
+  mx_keys_right_arms_extra_peripheral:
+  - what: outline
+    name: flexor_arm_right_mx
+    where: 
+      - ref: mirror_matrix_index_top
+        shift: [1.4u-1, 0]
+
+  thumbs_arm_extension_left_central:
+    - what: outline
+      name: flexor_arm_right_mx
+      where: 
+        - matrix_index_bottom
+        - matrix_index_home
+      adjust:
+        shift: [0.35u, 0]
+  thumbs_arm_extension_right_1_peripheral:
+    - what: outline
+      name: flexor_arm_right_mx
+      where: 
+        - mirror_matrix_index_bottom
+        - mirror_matrix_index_home
+      adjust.shift: [1.3u+1.5, 0.75]        
+  thumbs_arm_extension_right_2_peripheral:
+    - what: outline
+      name: flexor_arm_right_mx
+      where: 
+        - mirror_matrix_index_bottom
+        - mirror_matrix_index_home
+      adjust.shift: [1.7u, 0.75]
+  thumbs_arm_extension_right_peripheral:
+    - operation: stack
+      name: thumbs_arm_extension_right_1_peripheral
+    - name: thumbs_arm_extension_right_2_peripheral
+
+  mx_keys_down_central:
+    - what: outline
+      name: flexor_arm_down_mx
+      where: 
+        - /^(matrix)(?!.*num)(?!.*outer)(?!.*bottom)(?!.*thumbs).*$/
+  mx_keys_down_peripheral:
+    - what: outline
+      name: flexor_arm_down_mx
+      where: 
+        - /^(mirror)(?!.*num)(?!.*outer)(?!.*bottom)(?!.*thumbs).*$/
+
+  choc_keys_down_central:
+    - what: outline
+      name: flexor_arm_down_choc
+      where: 
+        - matrix_index_num
+        - matrix_middle_num
+        - matrix_ring_num
+        - matrix_pinky_num
+        - matrix_outer_num
+        - matrix_outer_top
+        - matrix_outer_home
+
+        - thumbs_layer_two
+        - thumbs_space_two
+  choc_keys_down_peripheral:
+    - what: outline
+      name: flexor_arm_down_choc
+      where: 
+        - mirror_matrix_index_num
+        - mirror_matrix_middle_num
+        - mirror_matrix_ring_num
+        - mirror_matrix_pinky_num
+        - mirror_matrix_outer_num
+        - mirror_matrix_outer_top
+        - mirror_matrix_outer_home
+
+        - mirror_thumbs_layer_two
+        - mirror_thumbs_space_two
+
+  arms_central:
+    - operation: add
+      name: mx_keys_right_arms_central
+    - name: mx_keys_down_central
+    - name: choc_keys_right_arms_central
+    - name: choc_keys_down_central
+    - name: thumbs_arm_extension_left_central
+
+  arms_peripheral:
+    - operation: add
+      name: mx_keys_right_arms_peripheral
+    - name: mx_keys_down_peripheral
+    - name: mx_keys_right_arms_extra_peripheral
+    - name: choc_keys_right_arms_peripheral
+    - name: choc_keys_right_arms_extra
+    - name: choc_keys_down_peripheral
+    - name: thumbs_arm_extension_right_peripheral
+
+  pcb_control_panel_central:
+    - what: polygon
+      points:
+        - matrix_index_num
+        - shift: [1.6u, 0]
+        - shift: [0, -2u]
+        - shift: [1, 0]
+        - shift: [0, 2u]
+        - shift: [5, 0]
+        - shift: [0, -2.75u]
+        - shift: [-2, 0]
+        - shift: [0, 4]
+        - shift: [-1u, 0]
+        - shift: [0, -4]
+        - shift: [-2, 0]
+        - shift: [0, 6]
+        - shift: [1u+2, 0]
+        - shift: [0, 2.75u-8]
+        - shift: [-1, 0]
+        - shift: [0, -2.15u]
+        - shift: [-(1.6u+3), 0]
+      adjust:
+        shift: [0.75u+3, 0.5u-1]
+
+  pcb_control_panel_peripheral:
+  - what: polygon
+    points:
+      - mirror_matrix_index_num
+      - shift: [1.6u, 0]
+      - shift: [0, -2u]
+      - shift: [1, 0]
+      - shift: [0, 2u]
+      - shift: [5, 0]
+      - shift: [0, -2.75u]
+      - shift: [-2, 0]
+      - shift: [0, 4]
+      - shift: [-1u, 0]
+      - shift: [0, -4]
+      - shift: [-2, 0]
+      - shift: [0, 6]
+      - shift: [1u+2, 0]
+      - shift: [0, 2.75u-8]
+      - shift: [-1, 0]
+      - shift: [0, -2.15u]
+      - shift: [-(1.6u+3), 0]
+    adjust:
+      shift: [-0.85u, 0.5u-1]
+
+  pcb_central:
+    - operation: add
+      name: pcb_control_panel_central
+    - name: mx_keys_central
+    - name: choc_keys_central
+    - name: arms_central
+  pcb_peripheral:
+    - operation: add
+      name: pcb_control_panel_peripheral
+    - name: mx_keys_peripheral
+    - name: choc_keys_peripheral
+    - name: arms_peripheral
+
 pcbs:
   central:
     template: kicad8
     outlines:
       main:
-        outline: left
+        outline: pcb_central
     footprints:
       mx_hotswap:
         what: ceoloide/switch_mx
@@ -189,28 +404,42 @@ pcbs:
           - matrix_outer_top
           - matrix_outer_home
           - matrix_outer_bottom
-          - /^thumbs.*/
+        adjust:
+          shift: [-1.5,-1]
         params:
           hotswap: true
           from: "{{column_net}}"
           to: "{{name}}"
-        # Controller
-      nice_nano:
+      choc_hotswap_thumbs:
+        what: ceoloide/switch_choc_v1_v2 
+        params:
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{name}}"
+        where: 
+          - /^thumbs.*/
+        adjust:
+          shift: [-1.5,-1]
+      # Controller
+      nice_nano_central:
          what: ceoloide/mcu_nice_nano
          params:
            reverse_mount: true
          where:
            ref: matrix_index_num
-           shift: [1.25u, -0.35u]
-      nice_view:
+           shift: [1.55u, -0.5u]
+      nice_view_central:
         what: ceoloide/display_nice_view
         where:
            ref: matrix_index_num
-           shift: [1.75u, -0.6u]
+           shift: [1.75u, -0.75u]
       encoder:
         what: ceoloide/rotary_encoder_ec11_ec12
         where:
            ref: thumbs_space_two
+        adjust:
+          shift: [-1.5,-1]
+          rotate: 180
         params:
           include_momentary_switch_pads: true
           include_plate_hole_marking: true
@@ -220,29 +449,30 @@ pcbs:
           S1: "{{name}}"
           S2: "{{colrow}}"
       # Battery jack
-      jstph:
+      jstph_central:
         what: jstph
         where:
           ref: matrix_index_num
-          shift: [2u, 0.45u]
+          shift: [2.25u, 0.2u]
         params:
             pos: pos
             neg: gnd
       # Reset switch (horizontal community version)
-      horizontal_reset:
+      horizontal_reset_central:
         what: ceoloide/reset_switch_smd_side
         params: 
           from: GND
           to: RST 
         where:
           ref: matrix_index_num
-          shift: [2u, -0.225u]
+          shift: [2.25u, -0.45u]
+          rotate: -90
       # Battery on/off switch
-      battery_switch:
+      battery_switch_central:
         what: ceoloide/power_switch_smd_side
         where:
             ref: matrix_index_num
-            shift: [2u, -0.85u]
+            shift: [2.25u, -1.05u]
         params:
             from: pos
             to: RAW
@@ -257,11 +487,12 @@ pcbs:
           to: "{{row}}"
         adjust:
           shift: [0, -5]
+
   peripheral:
     template: kicad8
     outlines:
       main:
-        outline: right
+        outline: pcb_peripheral
     footprints:
       mx_hotswap:
         what: ceoloide/switch_mx
@@ -282,11 +513,6 @@ pcbs:
           hotswap: true
           from: "{{column_net}}"
           to: "{{name}}"
-      holes_bottom:
-        what: ceoloide/mounting_hole_plated
-        where: /^mirror.*bottom$/
-        adjust:
-          shift: [0, -0.4u]
       choc_hotswap:
         what: ceoloide/switch_choc_v1_v2 
         where: 
@@ -298,72 +524,66 @@ pcbs:
           - mirror_matrix_outer_top
           - mirror_matrix_outer_home
           - mirror_matrix_outer_bottom
-          - /mirror_thumbs/
+        adjust:
+          shift: [1.5,-1]
         params:
           hotswap: true
           from: "{{column_net}}"
           to: "{{name}}"
-      holes_num:
-        what: ceoloide/mounting_hole_plated
-        where: /^mirror.*num$/
+      choc_hotswap_thumbs:
+        what: ceoloide/switch_choc_v1_v2 
+        params:
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{name}}"
+        where: 
+          - /^mirror_thumbs.*/
         adjust:
-          shift: [0, 0.4u]
+          shift: [1.5,-1]
       # Controller
-      nice_nano:
+      nice_nano_peripheral:
          what: ceoloide/mcu_nice_nano
          params:
            reverse_mount: true
          where:
            ref: mirror_matrix_index_num
-           shift: [1.25u, -0.35u]
-      nice_view:
+           shift: [1.55u, -0.5u]
+      nice_view_peripheral:
         what: ceoloide/display_nice_view
         where:
            ref: mirror_matrix_index_num
-           shift: [1.75u, -0.6u]
-      hole_panel:
-        what: ceoloide/mounting_hole_plated
-        where:
-           ref: mirror_matrix_index_num
-           shift: [1u, -1.5u]
+           shift: [1.75u, -0.75u]
       # Battery jack
-      jstph:
+      jstph_peripheral:
         what: jstph
         where:
           ref: mirror_matrix_index_num
-          shift: [2u, 0.45u]
+          shift: [2.25u, 0.2u]
         params:
             pos: pos
             neg: gnd
       # Reset switch (horizontal community version)
-      horizontal_reset:
+      horizontal_reset_peripheral:
         what: ceoloide/reset_switch_smd_side
         params: 
           from: GND
           to: RST 
         where:
           ref: mirror_matrix_index_num
-          shift: [2u, -0.225u]
-    # Battery on/off switch
-      battery_switch:
+          shift: [2.25u, -0.45u]
+          rotate: -90
+      # Battery on/off switch
+      battery_switch_peripheral:
         what: ceoloide/power_switch_smd_side
         where:
             ref: mirror_matrix_index_num
-            shift: [2u, -0.85u]
+            shift: [2.25u, -1.05u]
         params:
             from: pos
             to: RAW
-      trackpoint:
-        what: infused-kim/trackpoint_mount
-        where: 
-            ref: mirror_thumbs_layer_one
-            shift: [0.61u, 0.465u]
-        params:  
-          show_outline_t430: true
-          show_board: true
       diode:
         what: ceoloide/diode_tht_sod123
-        where:
+        where: 
           - /^mirror.*/
         params:
           include_tht: false
@@ -371,3 +591,5 @@ pcbs:
           to: "{{row}}"
         adjust:
           shift: [0, -5]
+      trackball_peripheral:
+        what: hedonicadapter/trackball_PMW3610
