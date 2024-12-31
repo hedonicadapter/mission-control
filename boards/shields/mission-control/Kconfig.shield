@@ -1,0 +1,5 @@
+config SHIELD_MISSION_CONTROL_LEFT
+	def_bool $(shields_list_contains,mission_control_left)
+
+config SHIELD_MISSION_CONTROL_RIGHT
+	def_bool $(shields_list_contains,mission_control_right)
