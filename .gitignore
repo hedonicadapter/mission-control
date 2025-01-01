@@ -1,0 +1,6 @@
+.venv/
+app/
+result
+.west2nix.toml
+west-packages.nix
+west2nix/
