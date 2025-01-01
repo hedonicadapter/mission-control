@@ -1,6 +1,11 @@
-#include <dt-bindings/zmk/matrix_transform.h> // Put this with the other includes at the top of your dtsi
+#include <dt-bindings/zmk/matrix_transform.h>
 
 / {
+        chosen {
+		zmk,kscan = &kscan0;
+		zmk,matrix_transform = &default_transform;
+        };
+
         kscan0: kscan0 {
                 compatible = "zmk,kscan-gpio-matrix";
                 diode-direction = "row2col";

@@ -1,1 +1,2 @@
 #include "mission_control.dtsi"
+#include "mission_control-layouts.dtsi"
