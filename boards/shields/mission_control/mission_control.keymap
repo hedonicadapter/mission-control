@@ -13,6 +13,8 @@
                 &kp A     &kp S    &kp D     &kp F     &kp G     &kp DEL   &kp PG_DN    &kp PG_UP   &kp HOME       &kp H     &kp J      &kp K      &kp L     &kp SQT
                 &kp Z     &kp X    &kp C     &kp V     &kp B     &kp SPACE &kp B        &kp B       &kp BSPC       &kp N     &kp M      &kp COMMA  &kp DOT   &mt RSHFT ENTER
             >;
+
+            sensor-bindings = <&inc_dec_kp UP DOWN_ARROW>;
         };
     };
 };
