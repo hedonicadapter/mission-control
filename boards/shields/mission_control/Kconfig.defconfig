@@ -7,15 +7,6 @@ config ZMK_KEYBOARD_NAME
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
-endif
-
-if SHIELD_MISSION_CONTROL_LEFT || SHIELD_MISSION_CONTROL_RIGHT
-
-config ZMK_SPLIT
-    default y
-
-endif
-
 if ZMK_DISPLAY
 
 config I2C
@@ -25,3 +16,13 @@ config SSD1306
     default y
 
 endif 
+
+endif
+
+if SHIELD_MISSION_CONTROL_LEFT || SHIELD_MISSION_CONTROL_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+endif
+
