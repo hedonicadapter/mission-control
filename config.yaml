@@ -7,8 +7,8 @@ points:
       anchor:
         shift: [40, -150]
       key:
-        spread: 1.3U+2
-        padding: 1U+7.5
+        spread: 1.3U+4
+        padding: 1U+9.5
       columns:
         outer:
           key.column_net: P14
@@ -45,10 +45,10 @@ points:
           row_net: P19
       anchor:
         ref: matrix_index_bottom
-        shift: [1.7u, 1]
+        shift: [1.975u, 1]
   mirror: &mirror
     ref: matrix_index_num
-    distance: 6u
+    distance: 10u
 outlines:
   mx_key:
     - what: rectangle
@@ -93,39 +93,38 @@ outlines:
       points:
         - shift: [0, 0]       # Start point
         - shift: [5, 0]    # Move right
-        - shift: [0, -0.9u]     # Move down
+        - shift: [0, -0.8u]     # Move down
         - shift: [1, 0]       # Move right
-        - shift: [0, 0.9u]      # Move up
-        - shift: [5, 0]       # Move right
-        - shift: [0, -2]      # Move down
-        - shift: [-3, 0]      # Move left
-        - shift: [0, -0.9u]     # Move down
-        - shift: [0, 0]       # Stay at current position
-        - shift: [-5, 0]    # Move further left
-        - shift: [0, 0.9u]      # Move up
+        - shift: [0, 0.8u]      # Move up
+        - shift: [7, 0]       # Move right
+        - shift: [0, -7]      # Move down
+        - shift: [-3.25, 0]      # Move left
+        - shift: [0, -0.65u]     # Move down
+        - shift: [-8, 0]    # Move further left
+        - shift: [0, 0.65u]      # Move up
         - shift: [0, 0]       # Stay at current position
         - shift: [-3, 0]      # Move left
       adjust:
-        shift: [0.39u, 0.45u]
+        shift: [0.45u, 0.45u]
  
   flexor_arm_down_mx:
     - what: outline
       name: flexor_arm_right_mx
       adjust:
         rotate: 90
-        shift: [0, -1.425u]
+        shift: [-1, -1.55u]
 
   flexor_arm_right_choc:
     - what: outline
       name: flexor_arm_right_mx
-      scale: 0.89
+      scale: 0.96
       adjust:
-        shift: [2, 1]
+        shift: [0.5, 0.3]
   flexor_arm_down_choc:
     - what: outline
       name: flexor_arm_down_mx
-      scale: 0.925
-      adjust.shift: [-1.2,0]
+      scale: 0.95
+      adjust.shift: [0,-0.5]
 
   mx-key-arm-down:
     - operation: stack
@@ -228,7 +227,7 @@ outlines:
         - matrix_index_bottom
         - matrix_index_home
       adjust:
-        shift: [0.35u, 0]
+        shift: [0.475u, 0]
   thumbs_arm_extension_right_1_peripheral:
     - what: outline
       name: flexor_arm_right_mx
@@ -405,7 +404,7 @@ pcbs:
           - matrix_outer_home
           - matrix_outer_bottom
         adjust:
-          shift: [-1.5,-1]
+          shift: [-1.5,0]
         params:
           hotswap: true
           from: "{{column_net}}"
@@ -419,7 +418,7 @@ pcbs:
         where: 
           - /^thumbs.*/
         adjust:
-          shift: [-1.5,-1]
+          shift: [-1.5,0]
       # Controller
       nice_nano_central:
          what: ceoloide/mcu_nice_nano
@@ -438,8 +437,7 @@ pcbs:
         where:
            ref: thumbs_space_two
         adjust:
-          shift: [-1.5,-1]
-          rotate: 180
+          shift: [-1.5,0]
         params:
           include_momentary_switch_pads: true
           include_plate_hole_marking: true
@@ -525,7 +523,7 @@ pcbs:
           - mirror_matrix_outer_home
           - mirror_matrix_outer_bottom
         adjust:
-          shift: [1.5,-1]
+          shift: [1.5,0]
         params:
           hotswap: true
           from: "{{column_net}}"
@@ -539,7 +537,7 @@ pcbs:
         where: 
           - /^mirror_thumbs.*/
         adjust:
-          shift: [1.5,-1]
+          shift: [1.5,0]
       # Controller
       nice_nano_peripheral:
          what: ceoloide/mcu_nice_nano
@@ -584,12 +582,11 @@ pcbs:
       diode:
         what: ceoloide/diode_tht_sod123
         where: 
-          - /^mirror.*/
+          - /^matrix.*/
+          - /^thumbs.*/
         params:
           include_tht: false
           from: "{{name}}"
           to: "{{row}}"
         adjust:
           shift: [0, -5]
-      trackball_peripheral:
-        what: hedonicadapter/trackball_PMW3610
