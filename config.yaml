@@ -5,7 +5,7 @@ points:
   zones:
     matrix:
       anchor:
-        shift: [40, -150]
+        shift: [30, -180]
       key:
         spread: 1.3U+4
         padding: 1U+9.5
@@ -48,7 +48,7 @@ points:
         shift: [1.975u, -1.5]
   mirror: &mirror
     ref: matrix_index_num
-    distance: 10u
+    distance: 9u
 outlines:
   mx_key:
     - what: rectangle
@@ -451,6 +451,8 @@ pcbs:
           - matrix_pinky_top
           - matrix_ring_top
           - matrix_middle_top
+        adjust:
+          shift: [0.5, -4]
         params:
           hotswap: true
           from: "{{column_net}}"
@@ -466,22 +468,14 @@ pcbs:
           - matrix_outer_top
           - matrix_outer_home
           - matrix_outer_bottom
-        adjust:
-          shift: [-1.5,0]
-        params:
-          hotswap: true
-          from: "{{column_net}}"
-          to: "{{name}}"
-      choc_hotswap_thumbs:
-        what: ceoloide/switch_choc_v1_v2 
-        params:
-          hotswap: true
-          from: "{{column_net}}"
-          to: "{{name}}"
-        where: 
           - /^thumbs.*/
         adjust:
-          shift: [-1.5,0]
+          shift: [-1.75, -5.5]
+        params:
+          hotswap: true
+          choc_v2_support: false
+          from: "{{column_net}}"
+          to: "{{name}}"
       # Controller
       nice_nano_central:
          what: ceoloide/mcu_nice_nano
@@ -547,7 +541,7 @@ pcbs:
           from: "{{name}}"
           to: "{{row}}"
         adjust:
-          shift: [0, -5]
+          shift: [0, 4]
 
   peripheral:
     template: kicad8
@@ -570,6 +564,8 @@ pcbs:
           - mirror_matrix_pinky_top
           - mirror_matrix_ring_top
           - mirror_matrix_middle_top
+        adjust:
+          shift: [-0.5, -4]
         params:
           hotswap: true
           from: "{{column_net}}"
@@ -585,22 +581,14 @@ pcbs:
           - mirror_matrix_outer_top
           - mirror_matrix_outer_home
           - mirror_matrix_outer_bottom
-        adjust:
-          shift: [1.5,0]
-        params:
-          hotswap: true
-          from: "{{column_net}}"
-          to: "{{name}}"
-      choc_hotswap_thumbs:
-        what: ceoloide/switch_choc_v1_v2 
-        params:
-          hotswap: true
-          from: "{{column_net}}"
-          to: "{{name}}"
-        where: 
           - /^mirror_thumbs.*/
         adjust:
-          shift: [1.5,0]
+          shift: [1.75, -5.5]
+        params:
+          hotswap: true
+          choc_v2_support: false
+          from: "{{column_net}}"
+          to: "{{name}}"
       # Controller
       nice_nano_peripheral:
          what: ceoloide/mcu_nice_nano
@@ -645,11 +633,11 @@ pcbs:
       diode:
         what: ceoloide/diode_tht_sod123
         where: 
-          - /^matrix.*/
-          - /^thumbs.*/
+          - /^mirror_matrix.*/
+          - /^mirror_thumbs.*/
         params:
           include_tht: false
           from: "{{name}}"
           to: "{{row}}"
         adjust:
-          shift: [0, -5]
+          shift: [0, 4]
