@@ -514,7 +514,7 @@ pcbs:
           include_silkscreen: true
           include_plated_mounting_holes: true
           encoder_pads_position: 8.254
-          S1: "{{name}}"
+          S1: "{{row_net}}"
           S2: "{{colrow}}"
       # Battery jack
       jstph_central:
