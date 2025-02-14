@@ -31,8 +31,8 @@ points:
           row_net: P21
     thumbs:
       key:
-        spread: 1.3U+2
-        padding: 1U+7.5
+        spread: 1.3U+3.75
+        padding: 1U+9.75
       columns:
         layer:
           key.column_net: P9
@@ -45,7 +45,7 @@ points:
           row_net: P19
       anchor:
         ref: matrix_index_bottom
-        shift: [1.975u, 1]
+        shift: [1.975u, -1.5]
   mirror: &mirror
     ref: matrix_index_num
     distance: 10u
@@ -220,6 +220,72 @@ outlines:
       - ref: mirror_matrix_index_top
         shift: [1.4u-1, 0]
 
+  thumbs_arms_control_panel:
+    - what: polygon
+      points:
+        - shift: [-6, 0] # left
+        - shift: [-0.75, 0] # left
+        - shift: [0, -9.75] # down
+        - shift: [-6, 0] # left
+        - shift: [0, 9.75] # up
+        - shift: [-0.75, 0] # left
+        - shift: [0, -9.75] # down
+        - shift: [-6, 0] # left
+        - shift: [0, 9.75] # up
+        - shift: [-0.75, 0] # left
+
+        - shift: [0, -15] # down
+        - shift: [-3.5, 0] # left
+        - shift: [0, 18] # up
+        - shift: [6.75, 0] # right
+        - shift: [0, -9.75] # down
+        - shift: [0.75, 0] # right
+        - shift: [0, 9.75] # up
+        - shift: [6, 0] # right
+        - shift: [0, -9.75] # down
+        - shift: [0.75, 0] # right
+        - shift: [0, 9.75] # up
+        - shift: [3.5, 0] # right
+
+        - shift: [6, 0] # left
+        - shift: [0, -9.75] # down
+        - shift: [0.75, 0] # left
+        - shift: [0, 9.75] # up
+        - shift: [6, 0] # left
+        - shift: [0, -9.75] # down
+        - shift: [0.75, 0] # left
+        - shift: [0, 9.75] # up
+
+        - shift: [6.75, 0] # left
+        - shift: [0, -18] # down
+        - shift: [-3, 0]
+        - shift: [0, 15] # up
+        - shift: [-0.75, 0] # up
+        - shift: [0, -9.75] # down
+        - shift: [-6, 0] # left
+        - shift: [0, 9.75] # up
+        - shift: [-0.75, 0] # left
+        - shift: [0, -9.75] # down
+
+        - shift: [-6, 0] # left
+        - shift: [0, 9.75] # up
+        - shift: [-0.75, 0] # left
+
+
+  thumbs_arms_control_panel_central:
+    - what: outline
+      name: thumbs_arms_control_panel
+      where:
+        - ref: thumbs_layer_two
+          shift: [1.2u+0.5, 1u]
+
+  thumbs_arms_control_panel_peripheral:
+  - what: outline
+    name: thumbs_arms_control_panel
+    where:
+      - ref: mirror_thumbs_space_two
+        shift: [-(1u-4.25), 1u]
+
   thumbs_arm_extension_left_central:
     - what: outline
       name: flexor_arm_right_mx
@@ -234,14 +300,14 @@ outlines:
       where: 
         - mirror_matrix_index_bottom
         - mirror_matrix_index_home
-      adjust.shift: [1.3u+1.5, 0.75]        
+      adjust.shift: [1.525u, -0.25]        
   thumbs_arm_extension_right_2_peripheral:
     - what: outline
       name: flexor_arm_right_mx
       where: 
         - mirror_matrix_index_bottom
         - mirror_matrix_index_home
-      adjust.shift: [1.7u, 0.75]
+      adjust.shift: [2u, -0.25]
   thumbs_arm_extension_right_peripheral:
     - operation: stack
       name: thumbs_arm_extension_right_1_peripheral
@@ -294,6 +360,7 @@ outlines:
     - name: choc_keys_right_arms_central
     - name: choc_keys_down_central
     - name: thumbs_arm_extension_left_central
+    - name: thumbs_arms_control_panel_central
 
   arms_peripheral:
     - operation: add
@@ -304,54 +371,46 @@ outlines:
     - name: choc_keys_right_arms_extra
     - name: choc_keys_down_peripheral
     - name: thumbs_arm_extension_right_peripheral
+    - name: thumbs_arms_control_panel_peripheral
 
   pcb_control_panel_central:
     - what: polygon
       points:
-        - matrix_index_num
-        - shift: [1.6u, 0]
-        - shift: [0, -2u]
-        - shift: [1, 0]
-        - shift: [0, 2u]
-        - shift: [5, 0]
-        - shift: [0, -2.75u]
-        - shift: [-2, 0]
-        - shift: [0, 4]
-        - shift: [-1u, 0]
-        - shift: [0, -4]
-        - shift: [-2, 0]
-        - shift: [0, 6]
-        - shift: [1u+2, 0]
-        - shift: [0, 2.75u-8]
-        - shift: [-1, 0]
-        - shift: [0, -2.15u]
-        - shift: [-(1.6u+3), 0]
+        - matrix_index_num # 0
+        - shift: [1.6u, 0] # right
+        - shift: [0, -2u] # down
+        - shift: [0.75, 0] # right
+        - shift: [0, 2u] # up
+        - shift: [8, 0] # right
+        - shift: [0, -2.5u] # down
+
+        - shift: [-3.5, 0] # left
+        - shift: [0, 2.25u] # up
+        - shift: [-0.75, 0] # left
+        - shift: [0, -1.95u] # down
+        - shift: [-35, 0] # left
+
       adjust:
-        shift: [0.75u+3, 0.5u-1]
+        shift: [0.75u+4.75, 0.5u-1]
 
   pcb_control_panel_peripheral:
   - what: polygon
     points:
       - mirror_matrix_index_num
-      - shift: [1.6u, 0]
-      - shift: [0, -2u]
-      - shift: [1, 0]
-      - shift: [0, 2u]
-      - shift: [5, 0]
-      - shift: [0, -2.75u]
-      - shift: [-2, 0]
-      - shift: [0, 4]
-      - shift: [-1u, 0]
-      - shift: [0, -4]
-      - shift: [-2, 0]
-      - shift: [0, 6]
-      - shift: [1u+2, 0]
-      - shift: [0, 2.75u-8]
-      - shift: [-1, 0]
-      - shift: [0, -2.15u]
-      - shift: [-(1.6u+3), 0]
+      - shift: [1.6u, 0] # right
+      - shift: [0, -2u] # down
+      - shift: [0.75, 0] # right
+      - shift: [0, 2u] # up
+      - shift: [8, 0] # right
+      - shift: [0, -2.5u] # down
+
+      - shift: [-3.5, 0] # left
+      - shift: [0, 2.25u] # up
+      - shift: [-0.75, 0] # left
+      - shift: [0, -1.95u] # down
+      - shift: [-35, 0] # left
     adjust:
-      shift: [-0.85u, 0.5u-1]
+      shift: [-0.9u, 0.5u-1]
 
   pcb_central:
     - operation: add
@@ -365,6 +424,10 @@ outlines:
     - name: mx_keys_peripheral
     - name: choc_keys_peripheral
     - name: arms_peripheral
+  bof:
+    - operation: add
+      name: pcb_central
+    - name: pcb_peripheral
 
 pcbs:
   central:
