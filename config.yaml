@@ -11,38 +11,38 @@ points:
         padding: 1U+9.5
       columns:
         outer:
-          key.column_net: P14
+          key.column_net: C1
         pinky:
-          key.column_net: P16
+          key.column_net: C2
         ring:
-          key.column_net: P10
+          key.column_net: C3
         middle:
-          key.column_net: P6
+          key.column_net: C4
         index:
-          key.column_net: P7
+          key.column_net: C5
       rows:
         bottom:
-          row_net: P18
+          row_net: R1
         home:
-          row_net: P19
+          row_net: R2
         top:
-          row_net: P20
+          row_net: R3
         num:
-          row_net: P21
+          row_net: R4
     thumbs:
       key:
         spread: 1.3U+3.75
         padding: 1U+9.75
       columns:
         layer:
-          key.column_net: P9
+          key.column_net: C6
         space:
-          key.column_net: P8
+          key.column_net: C7
       rows:
         one:
-          row_net: P18
+          row_net: R1
         two:
-          row_net: P19
+          row_net: R2
       anchor:
         ref: matrix_index_bottom
         shift: [1.975u, -1.5]
@@ -418,12 +418,14 @@ outlines:
     - name: mx_keys_central
     - name: choc_keys_central
     - name: arms_central
+      fillet: 1
   pcb_peripheral:
     - operation: add
       name: pcb_control_panel_peripheral
     - name: mx_keys_peripheral
     - name: choc_keys_peripheral
     - name: arms_peripheral
+      fillet: 1
   bof:
     - operation: add
       name: pcb_central
@@ -481,6 +483,17 @@ pcbs:
          what: ceoloide/mcu_nice_nano
          params:
            reverse_mount: true
+           P14: C1
+           P16: C2
+           P10: C3
+           P6: C4
+           P7: C5
+           P18: R1
+           P19: R2
+           P20: R3
+           P21: R4
+           P9: C6
+           P8: C7
          where:
            ref: matrix_index_num
            shift: [1.55u, -0.5u]
@@ -594,6 +607,17 @@ pcbs:
          what: ceoloide/mcu_nice_nano
          params:
            reverse_mount: true
+           P14: C1
+           P16: C2
+           P10: C3
+           P6: C4
+           P7: C5
+           P18: R1
+           P19: R2
+           P20: R3
+           P21: R4
+           P9: C6
+           P8: C7
          where:
            ref: mirror_matrix_index_num
            shift: [1.55u, -0.5u]
