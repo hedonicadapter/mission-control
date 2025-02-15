@@ -621,11 +621,16 @@ pcbs:
          where:
            ref: mirror_matrix_index_num
            shift: [1.55u, -0.5u]
-      nice_view_peripheral:
-        what: ceoloide/display_nice_view
+      trackball_pinout:
+        what: hedonicadapter/PMW3610_pins
         where:
            ref: mirror_matrix_index_num
            shift: [1.75u, -0.75u]
+        params:
+          SCLK: P4
+          SDIO: P5
+          nCS: P3
+          MOTION: P15
       # Battery jack
       jstph_peripheral:
         what: jstph
