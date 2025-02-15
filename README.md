@@ -7,4 +7,4 @@ Custom ergonomic keeb with ergogen and a ZMK shield
 - trackball (pmw3610)
 
 
-**Take configs with a grain of salt, I'm just experimenting and rarely know what I'm doing**
+*Take this with a grain of salt, I'm just experimenting and rarely know what I'm doing*
