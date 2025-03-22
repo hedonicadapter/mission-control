@@ -1,6 +1,6 @@
 include:
   - board: nice_nano_v2
-    shield: mission_control_left nice_view_adapter nice_view
+    shield: mission_control_left
     snippet: zmk-usb-logging
 
   - board: nice_nano_v2

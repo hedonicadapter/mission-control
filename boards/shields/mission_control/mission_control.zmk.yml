@@ -4,12 +4,9 @@ name: Mission Control
 type: shield
 url: https://github.com/hedonicadapter/mission-control/
 requires: [pro_micro]
-exposes: [i2c_oled]
 features:
   - keys
-  - display
   - encoder
-  - pointer
 siblings:
   - mission_control_left
   - mission_control_right
